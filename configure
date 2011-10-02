@@ -1,0 +1,5 @@
+#!/bin/bash
+
+echo Nothing to configure. Just run make, then make install.
+
+

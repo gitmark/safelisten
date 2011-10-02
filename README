@@ -1,0 +1,93 @@
+/***************************************************************************************
+Copyright 2011 Mark Elrod. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, are
+permitted provided that the following conditions are met:
+
+   1. Redistributions of source code must retain the above copyright notice, this list of
+      conditions and the following disclaimer.
+
+   2. Redistributions in binary form must reproduce the above copyright notice, this list
+      of conditions and the following disclaimer in the documentation and/or other materials
+      provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY MARK ELROD ''AS IS'' AND ANY EXPRESS OR IMPLIED
+WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL MARK ELROD OR
+CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+The views and conclusions contained in the software and documentation are those of the
+authors and should not be interpreted as representing official policies, either expressed
+or implied, of Mark Elrod.
+****************************************************************************************
+
+10/01/11   Mark Elrod     SafeListen 
+
+SafeListen is a simple program that allows you to safeley listen to a port to see who
+is connecting and what they are sending. The app can help identify security threats
+and troubleshoot network applicationsa. The app builds on Windows, OSX and Linux.
+
+
+Usage:
+
+safelisten 80
+
+
+Example Output: (note, the IP addresses here have been changed for example purposes)	 
+
+Enter q to quit.
+
+2011/09/30 20:45:42 - 192.168.1.1
+GET / HTTP/1.1..Host: 81.194.129.35..User-Agent: Mozilla/5.0 (iPod; U; CPU iPhone OS 4_3_5 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8L1 Safari/6533.18.5..Accept: application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,* / *;q=0.5..Accept-Language: en-us..Accept-Encoding: gzip, deflate..Connection: keep-alive....
+
+2011/10/01 10:20:50 - 66.134.166.232
+GET / HTTP/1.1..Accept: image/jpeg, application/x-ms-application, image/gif, application/xaml+xml, image/pjpeg, application/x-ms-xbap, application/vnd.ms-excel, application/vnd.ms-powerpoint, application/msword, * / *..Accept-Language: en-US..User-Agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; Trident/4.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C; .NET4.0E)..Accept-Encoding: gzip, deflate..Host: 78.194.129.95..Connection: Keep-Alive....
+
+
+Design Goals:
+
+A major design goal of the app was to give extremely limited power to the client app. Here 
+is the initial set of rules that SafeListen followed:
+
+- Don't allow the client to crash the app by sending an unlimited amount of data. The
+app will read up to 1024 bytes and that's it. After that, the app closes the connection on the
+client.
+
+- Don't allow the client to hold the connection open forever. The app gives the client
+up to one second to send some data. After that the app will close the connection. The
+app was designed to be safe, not polite.
+
+- Don't allow the client to overflow the app's input buffer. The app has a hard limit
+on the number of bytes it will read to insure no chance of buffer overflow.
+
+- Don't attempt to print binary or control characters sent by the client. The app
+cleanses the data that is read by replacing all non-printable characters with a '.'
+before printing.
+
+- Don't allow the client to fill up the hard drive with log files. All output is sent
+to standard out. The app has no direct file access, just standard out.
+
+- Don't allow clients to over tax the app with an unlimited number of connections and
+threads. The app is single threaded. The app has no obligation to accept every single
+connection, and makes no attempt to do so. The app does not increase threads or 
+resources used when an great number of connections are attempted simultaneously, thus
+the app is not over taxed. The result is that some connections are not accepted, while
+the app continues to work safely and comfortably.
+
+The app will allow you to peek at how others are trying to connect to your system
+without you worrying about them exploiting or crashing the app.
+
+SafeListen has very few bells and whistles, so there is very little to break.
+
+
+Build Instructions:
+
+make
+make install
+
+
