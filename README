@@ -21,16 +21,18 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDI
 NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+SafeListen is a trademark of Mark Elrod.
+
 The views and conclusions contained in the software and documentation are those of the
 authors and should not be interpreted as representing official policies, either expressed
-or implied, of Mark Elrod.
+or implied, of the SafeListen project.
 ****************************************************************************************
 
 10/01/11   Mark Elrod     SafeListen 
 
-SafeListen is a simple program that allows you to safeley listen to a port to see who
+SafeListen is a simple program that allows you to safely listen to a port to see who
 is connecting and what they are sending. The app can help identify security threats
-and troubleshoot network applicationsa. The app builds on Windows, OSX and Linux.
+and troubleshoot network applications. The app builds on Windows, OSX and Linux.
 
 
 Usage:
@@ -87,6 +89,7 @@ SafeListen has very few bells and whistles, so there is very little to break.
 
 Build Instructions:
 
+configure
 make
 make install
 
