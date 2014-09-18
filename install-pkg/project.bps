@@ -1,5 +1,6 @@
 settings()
 {
+    B_PACKAGE_NAME="qt"
     B_GIT_URL=https://github.com/gitmark/safelisten.git
     B_VERSION_NAMES="master"
     B_TARGET_NAMES="desktop"
