@@ -1,8 +1,8 @@
 settings()
 {
     B_GIT_URL=https://github.com/gitmark/safelisten.git
-    B_CREATE_VERSION_NAME="master"
-    B_CREATE_TARGET_NAME="desktop"
+    B_VERSION_NAMES="master"
+    B_TARGET_NAMES="desktop"
     B_INSTALL_DIR="$B_TARGET_DIR/install"
     B_CONFIGURE_FLAGS="--prefix="$B_INSTALL_DIR""
 }
